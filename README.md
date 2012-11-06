@@ -3,7 +3,7 @@ Postgres-streaming-replication-script
 
 Usage
 -----
-create_slave_with_rsync.bash $master_ip
+	./create_slave_with_rsync.bash $master_ip
 
 Requirments
 -----------
