@@ -28,6 +28,7 @@ if [[ "$isrunning" = "postgress_not_running" ]]
 then
         echo "postgres not running on the master, exiting";
         exit 1
+
 elif [[ "$isrunning" = "postgres_running" ]]
 then
         echo "postgres running on remote host";
@@ -69,13 +70,13 @@ mv $datadir/recovery.done $datadir/recovery.conf
 
 
 CheckForRecoveryConfig () {
-	if [ -e "$datadir/recovery.conf" ];
-	    then
-		echo "Slave Config File Found, Continuing"
-	    else
-		echo "Recovery.conf not found Postgres Cannot Become a Slave, Exiting"
-		exit 1
-	fi
+if [ -e "$datadir/recovery.conf" ];
+    then
+	echo "Slave Config File Found, Continuing"
+    else
+	echo "Recovery.conf not found Postgres Cannot Become a Slave, Exiting"
+	exit 1
+fi
 }
 
 
