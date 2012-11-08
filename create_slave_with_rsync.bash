@@ -63,8 +63,8 @@ echo "Sanity checks passed executing rest of script"
 PrepareLocalServer () {
 
 if [[ -f "/tmp/trigger_file" ]]
-	rm /tmp/trigger_file
 then
+	rm /tmp/trigger_file
 fi
 
 bash /etc/init.d/postgresql stop
