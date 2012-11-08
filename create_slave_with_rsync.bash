@@ -5,21 +5,21 @@ datadir=/var/lib/postgresql/9.2/main
 archivedir=/var/lib/postgresql/9.2/archive
 archivedirdest=/var/lib/postgresql/9.2/archive
 
-
-	if [[ `whoami` != "postgres" ]]
-	then
-	      echo "This script must be run as user Postgres, and passwordless ssh must already be setup"
-	      exit 1
-	fi
-
-
+#Usage
 	if [ "$1" = "" ]
 	then
 		echo "Usage: $0 masters ip address"
 		echo
 	exit 1
 	fi
-	    
+
+Whoami () {
+if [[ `whoami` != "postgres" ]]
+then
+      echo "This script must be run as user Postgres, and passwordless ssh must already be setup"
+      exit 1
+fi
+} 
 
 CheckIfPostgresIsRunningOnRemoteHost () {
 isrunning="$(ssh postgres@"$1" 'if killall -0 postgres; then echo "postgres_running"; else echo "postgress_not_running"; fi;')"
@@ -110,7 +110,7 @@ ssh postgres@$sourcehost "/etc/init.d/postgresql start"
 }
 
 #Execute above operations
-
+Whoami
 CheckIfPostgresIsRunningOnRemoteHost $1
 CheckIfMasterIsActuallyAMaster $1
 PrepareLocalServer $datadir
