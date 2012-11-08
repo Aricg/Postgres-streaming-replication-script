@@ -6,12 +6,12 @@ archivedir=/var/lib/postgresql/9.2/archive
 archivedirdest=/var/lib/postgresql/9.2/archive
 
 #Usage
-	if [ "$1" = "" ]
-	then
-		echo "Usage: $0 masters ip address"
-		echo
-	exit 1
-	fi
+if [ "$1" = "" ]
+then
+	echo "Usage: $0 masters ip address"
+	echo
+exit 1
+fi
 
 Whoami () {
 if [[ `whoami` != "postgres" ]]
@@ -59,18 +59,23 @@ fi
 }
 
 echo "Sanity checks passed executing rest of script"
-
-
 #prepare local server to become the new slave server. 
 PrepareLocalServer () {
-rm /tmp/trigger_file
+
+if [[ -f "/tmp/trigger_file" ]]
+	rm /tmp/trigger_file
+fi
+
 bash /etc/init.d/postgresql stop
-mv $datadir/recovery.done $datadir/recovery.conf
+
+if [[ -f "$datadir/recovery.done" ]];
+	mv "$datadir"/recovery.done "$datadir"/recovery.conf
+fi
 }
 
 
 CheckForRecoveryConfig () {
-if [ -e "$datadir/recovery.conf" ];
+if [[ -f "$datadir/recovery.conf" ]];
     then
 	echo "Slave Config File Found, Continuing"
     else
