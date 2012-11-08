@@ -64,11 +64,13 @@ PrepareLocalServer () {
 
 if [[ -f "/tmp/trigger_file" ]]
 	rm /tmp/trigger_file
+then
 fi
 
 bash /etc/init.d/postgresql stop
 
 if [[ -f "$datadir/recovery.done" ]];
+then
 	mv "$datadir"/recovery.done "$datadir"/recovery.conf
 fi
 }
