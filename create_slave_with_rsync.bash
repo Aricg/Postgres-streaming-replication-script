@@ -49,6 +49,7 @@ then
 elif [[ "$ismaster" = "postgres_is_a_master_instance" ]]
 then
        echo "postgres is running as master (probably)";
+
 elif echo "unexpected response, exiting"
 then
         exit 1
@@ -108,12 +109,6 @@ StartLocalAndThenRemotePostGreSql () {
 ssh postgres@$sourcehost "/etc/init.d/postgresql start"
 }
 
-#Reenable failover 
-ReenableFailover () {
-rm /tmp/dont_fail_over
-ssh postgres@$sourcehost "rm /tmp/dont_fail_over"
-}
-
 #Execute above operations
 
 CheckIfPostgresIsRunningOnRemoteHost $1
@@ -125,7 +120,6 @@ RsyncWhileLive $1
 StopBackupModeAndArchiveIntoWallLog $1
 StopPostgreSqlAndFinishRsync $1
 StartLocalAndThenRemotePostGreSql $1
-ReenableFailover $1
 
 
 
