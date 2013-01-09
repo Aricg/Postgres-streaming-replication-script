@@ -6,11 +6,11 @@ archivedir=/var/lib/postgresql/9.2/archive
 archivedirdest=/var/lib/postgresql/9.2/archive
 
 #Usage
-if [ "$1" = "" ]
+if [ "$1" = "" ] || [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ;
 then
 	echo "Usage: $0 masters ip address"
 	echo
-exit 1
+exit 0
 fi
 
 Whoami () {
