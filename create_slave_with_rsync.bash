@@ -88,6 +88,7 @@ fi
 
 
 #put master into  backup mode
+#TODO before doing PutMasterIntoBackupMode clean up archive logs (IE rm or mv /var/lib/postgresql/9.2/archive/*). They are not needed since we are effectivly createing a new base backup and then synching it. 
 PutMasterIntoBackupMode () {
 ssh postgres@"$1" "psql -c \"SELECT pg_start_backup('Streaming Replication', true)\" postgres"
 }
