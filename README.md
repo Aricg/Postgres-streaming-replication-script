@@ -29,6 +29,8 @@ Example Recovery.conf
 	standby_mode = 'on'
 	primary_conninfo = '$master_ip port=5432 user=$user password=$password'
 	trigger_file = '/tmp/trigger_file'
+	#Note about restorecommand: It can be an scp to the "other" machines archive dir, useful if the slave falls behind (beyond the px_log)
+	#and needs access to older logs. (Alternativly you can write your pglogs to a shared space (eg: nfs) )
 	restore_command = 'cp /var/lib/postgresql/9.2/archive/%f "%p"'
 	archive_cleanup_command = '/usr/lib/postgresql/9.2/bin/pg_archivecleanup /var/lib/postgresql/9.2/archive/ %r'
 
