@@ -1,6 +1,6 @@
 #!/bin/bash 
 ##This is meanst to be run on the slave, with the masters ip as the passed variable. ($1)
-sourcehost=$1
+sourcehost="$1"
 datadir=/var/lib/postgresql/9.2/main
 archivedir=/var/lib/postgresql/9.2/archive
 archivedirdest=/var/lib/postgresql/9.2/archive
